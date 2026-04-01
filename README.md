@@ -1,10 +1,10 @@
-# SF Guide Agent
+# Salesforce Admin Agent
 
 > Natural language → Salesforce implementation guide, tailored to your Org.
 
 ## Overview
 
-SF Guide Agent takes a natural language use case and generates a step-by-step Salesforce implementation guide based on the actual Org environment.
+Salesforce Admin Agent takes a natural language use case and generates a step-by-step Salesforce implementation guide based on the actual Org environment.
 
 Built on a **3-LLM Pipeline** where each LLM has a single responsibility:
 - **Classifier** — classifies use case type + summarizes input
@@ -18,11 +18,11 @@ Built on a **3-LLM Pipeline** where each LLM has a single responsibility:
 ```
 User Input
     ↓
-Classifier LLM        → use case type (6 categories) + one-line summary
+Classifier LLM             → use case type (6 categories) + summary
     ↓
-Planner LLM + Tools   → features + step order  /  Tools: Salesforce REST API · Tavily Search
+Planner LLM (with Tools)   → features + step order  /  Tools: Salesforce REST API · Tavily Search
     ↓
-Generator LLM + read_skill Tool  → reads only required Skill files at runtime
+Generator LLM (with Tool)  → reads only required Skill files at runtime  /  Tool: read_skill 
     ↓
 Implementation Guide (markdown)
 ```
@@ -31,9 +31,16 @@ Implementation Guide (markdown)
 
 ```
 skills/
-├── setup / layout / prompt / flow / apex / agent
+├── setup
+├── layout
+├── agent
+├── flow
+├── apex
+├── prompt template
 └── prompt_type/
-    ├── field_generation / flex / sales_email
+    ├── field_generation
+    ├── flex
+    ├── sales_email
 ```
 
 ---
@@ -60,7 +67,7 @@ To ensure reliable output quality, the agent covers a defined set of implementat
 | Flow | Record-Triggered · Screen · Template-Triggered · Scheduled |
 | Others | Setup · Layout · Apex · Agent |
 
-Salesforce Org: **25 standard objects** connected via REST API + CLI metadata pipeline.
+Salesforce Developer Org: **25 standard objects** connected via REST API + CLI metadata pipeline.
 
 ---
 
